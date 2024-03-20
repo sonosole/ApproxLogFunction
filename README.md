@@ -125,37 +125,37 @@ Calculating scaler input is slower, but why calculating array input is faster ? 
 Error is well controlled when using IEEE754 floating-point positive **normal** numbers, which is represented as :
 
 $$
-x = 2^{E-B} \ (1 + F * 2^{-FW})
+x = 2^{E-B} \ (1 + F × 2^{-|F|})
 $$
 
-where $E$ is the value of exponent part, $B=(2 ^ {EW - 1} - 1)$ is the bias for $E$, $EW$ is the bit width of $E$, $F$ is the value of fractional part, and $FW$ is the bit width of $F$.  So the range for an `Approxlog` object's input is $[X_{\rm min}, X_{\rm max}]$, where
+where $0 < E < (2^{|E|} - 1)$ is the value of exponent part, $|E|$ is the bit width of $E$,  $F$ is the value of fractional part,  $|F|$ is the bit width of $F$, and $B=(2 ^ {|E| - 1} - 1)$  is the bias for $E$.  So the range for an `Approxlog` object's input is $[X_{\rm min}, X_{\rm max}]$, where
 
 $$
 \begin{aligned}
-X_{\rm min} &= 2^{1-B} \ (1 + 0 * 2^{-FW}) \\
-X_{\rm max} &= 2^{(2^{EW}-2)-B} \ (1 + (2^{FW}-1) * 2^{-FW})
+X_{\rm min} &= 2^{1-B} \ (1 + 0 × 2^{-|F|}) &&= 2^{1-B} \\
+X_{\rm max} &= 2^{(2^{|E|}-2)-B} \ \big(1 + (2^{|F|}-1) × 2^{-|F|}\big) &&= 2^{B} \ \big(1 + (2^{|F|}-1) × 2^{-|F|}\big)
 \end{aligned}
 $$
 
 In short, for `Float16`  input, its range is :
 
 $$
-2^{1-15} \ (1 + 0 * 2^{-10}) \le
-X_{\rm Float16} \le 2^{30-15} \ (1 + (2^{10} -1) * 2^{-10})
+2^{1-15} \le
+X_{\rm Float16} \le 2^{15} \ \big( 1 + (2^{10} -1) × 2^{-10} \big)
 $$
 
 for `Float32` input :
 
 $$
-2^{1-127} \ (1 + 0 * 2^{-23}) \le
-X_{\rm Float32} \le 2^{254-127} \ (1 + (2^{23} -1) * 2^{-23})
+2^{1-127} \le
+X_{\rm Float32} \le 2^{127} \ \big(1 + (2^{23} -1) × 2^{-23}\big)
 $$
 
 and for `Float64` input :
 
 $$
-2^{1-1023} \ (1 + 0 * 2^{-23}) \le
-X_{\rm Float64} \le 2^{2046-1023} \ (1 + (2^{52} -1) * 2^{-52})
+2^{1-1023} \le
+X_{\rm Float64} \le 2^{1023} \ (1 + (2^{52} -1) × 2^{-52})
 $$
 
 As to positive **subnormal** numbers, the result is not reliable.
