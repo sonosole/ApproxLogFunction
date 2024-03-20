@@ -141,21 +141,21 @@ In short, for `Float16`  input, its range is :
 
 $$
 2^{1-15} \le
-X_{\rm Float16} \le 2^{15} \ \big( 1 + (2^{10} -1) × 2^{-10} \big)
+X_{\rm Float16} \le 2^{15} \ \left( 1 + (2^{10} -1) × 2^{-10} \right)
 $$
 
 for `Float32` input :
 
 $$
 2^{1-127} \le
-X_{\rm Float32} \le 2^{127} \ \big(1 + (2^{23} -1) × 2^{-23}\big)
+X_{\rm Float32} \le 2^{127} \ \left(1 + (2^{23} -1) × 2^{-23}\right)
 $$
 
 and for `Float64` input :
 
 $$
 2^{1-1023} \le
-X_{\rm Float64} \le 2^{1023} \ (1 + (2^{52} -1) × 2^{-52})
+X_{\rm Float64} \le 2^{1023} \ \left(1 + (2^{52} -1) × 2^{-52}\right)
 $$
 
 As to positive **subnormal** numbers, the result is not reliable.
