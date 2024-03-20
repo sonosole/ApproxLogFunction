@@ -52,6 +52,8 @@ plot(figs..., layout=(1,2), leg=nothing, size=(999,666))
 
 ## 🥇 Benchmark
 
+Some unimportant information was omitted when benchmarking.
+
 ### 💃🏻 Scalar Input
 
 ```julia
@@ -64,25 +66,13 @@ julia> begin
        end;
 julia> x = 1.23456f0;
 julia> @benchmark y₁ = log($base, $x)
-BenchmarkTools.Trial: 10000 samples with 998 evaluations.
- Range (min … max):  20.040 ns … 86.573 ns  ┊ GC (min … max): 0.00% … 0.00%
- Time  (median):     21.643 ns              ┊ GC (median):    0.00%  
- Time  (mean ± σ):   22.212 ns ±  2.884 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
- Memory estimate: 0 bytes, allocs estimate: 0.
+ Time  (median):     21.643 ns
 
 julia> @benchmark y₁ = log2($x)
-BenchmarkTools.Trial: 10000 samples with 1000 evaluations.
- Range (min … max):  10.900 ns … 38.800 ns  ┊ GC (min … max): 0.00% … 0.00%
- Time  (median):     14.800 ns              ┊ GC (median):    0.00%  
- Time  (mean ± σ):   15.213 ns ±  1.922 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
- Memory estimate: 0 bytes, allocs estimate: 0.
+ Time  (median):     14.800 ns
 
 julia> @benchmark y₂ = alog($x)
-BenchmarkTools.Trial: 10000 samples with 976 evaluations.
- Range (min … max):  70.697 ns …  2.731 μs  ┊ GC (min … max): 0.00% … 96.03%
- Time  (median):     74.129 ns              ┊ GC (median):    0.00%
- Time  (mean ± σ):   80.076 ns ± 59.266 ns  ┊ GC (mean ± σ):  1.61% ±  2.14%
- Memory estimate: 32 bytes, allocs estimate: 2.
+ Time  (median):     74.129 ns
 ```
 
 ### 👨‍👨‍👧‍👧 Array Input
@@ -97,25 +87,13 @@ julia> begin
        end;
 julia> x = rand(type, 1024, 1024);
 julia> @benchmark y₁ = log.($base, $x)
-BenchmarkTools.Trial: 228 samples with 1 evaluation.
- Range (min … max):  20.717 ms … 28.521 ms  ┊ GC (min … max): 0.00% … 23.03%
- Time  (median):     21.422 ms              ┊ GC (median):    0.00%
- Time  (mean ± σ):   21.930 ms ±  1.687 ms  ┊ GC (mean ± σ):  1.84% ±  5.51%
- Memory estimate: 4.00 MiB, allocs estimate: 2.
+ Time  (median):     21.422 ms
 
 julia> @benchmark y₁ = log2.($x)
-BenchmarkTools.Trial: 407 samples with 1 evaluation.
- Range (min … max):  11.248 ms … 23.749 ms  ┊ GC (min … max): 0.00% … 38.98%
- Time  (median):     11.626 ms              ┊ GC (median):    0.00%
- Time  (mean ± σ):   12.266 ms ±  1.806 ms  ┊ GC (mean ± σ):  3.55% ±  8.84%
- Memory estimate: 4.00 MiB, allocs estimate: 2.
+ Time  (median):     11.626 ms
 
 julia> @benchmark y₂ = alog.($x)
-BenchmarkTools.Trial: 876 samples with 1 evaluation.
- Range (min … max):  4.849 ms … 18.183 ms  ┊ GC (min … max): 0.00% … 54.80%
- Time  (median):     5.207 ms              ┊ GC (median):    0.00%
- Time  (mean ± σ):   5.681 ms ±  1.679 ms  ┊ GC (mean ± σ):  7.58% ± 13.72%
- Memory estimate: 4.00 MiB, allocs estimate: 7.
+ Time  (median):     5.207 ms
 ```
 
 Calculating scaler input is slower, but why calculating array input is faster ? 😂😂😂
